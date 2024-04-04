@@ -1,5 +1,6 @@
 import "./App.css";
 import BoundingBoxOnImage from "./BoundingBoxOnImage";
+import RightBar from "./components/RightBar";
 
 function App() {
   const coordinate1 = {
@@ -31,10 +32,15 @@ function App() {
   };
 
   return (
-    <div className="h-screen w-auto">
-      <BoundingBoxOnImage
-        coordinates={[coordinate1, coordinate2, coordinate3, coordinate4]}
-      />
+    <div className="h-screen w-auto grid grid-cols-3">
+      <div className="col-span-2">
+        <BoundingBoxOnImage
+          coordinates={[coordinate1, coordinate2, coordinate3, coordinate4]}
+        />
+      </div>
+      <div className="col-span-1">
+        <RightBar />
+      </div>
     </div>
   );
 }

@@ -2,9 +2,10 @@ import React, { useRef, useEffect } from "react";
 import SampleImage from "./assets/sample-image.jpg";
 import { CoordinateWithColor } from "./types/CoordinateType";
 
-const BoundingBoxOnImage: React.FC<{ coordinates: CoordinateWithColor[] }> = ({
-  coordinates,
-}) => {
+const BoundingBoxOnImage: React.FC<{
+  coordinates: CoordinateWithColor[];
+  hoveredCoordinates: CoordinateWithColor | null;
+}> = ({ coordinates, hoveredCoordinates }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,13 @@ const BoundingBoxOnImage: React.FC<{ coordinates: CoordinateWithColor[] }> = ({
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
 
+      if (hoveredCoordinates) {
+        const { x, y, width, height, color } = hoveredCoordinates;
+        // Set box background color and opacity
+        ctx.fillStyle = color;
+        ctx.globalAlpha = 0.4;
+        ctx.fillRect(x, y, width - x, height - y);
+      }
       // Draw the bounding box
       coordinates.forEach((coordinate) => {
         const { x, y, width, height, color } = coordinate;
@@ -41,7 +49,7 @@ const BoundingBoxOnImage: React.FC<{ coordinates: CoordinateWithColor[] }> = ({
       // Reset global alpha
       ctx.globalAlpha = 1;
     };
-  }, [coordinates]);
+  }, [coordinates, hoveredCoordinates]);
 
   return <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />;
 };

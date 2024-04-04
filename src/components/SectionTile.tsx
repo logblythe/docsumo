@@ -12,15 +12,28 @@ type PropType = {
   isChecked: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
   onRemove: (id: number) => void;
+  onMouseEnter: (id: number) => void;
+  onMouseLeave: (id: number) => void;
 };
 
-const SectionTile = ({ section, isChecked, onCheck, onRemove }: PropType) => {
+const SectionTile = ({
+  section,
+  isChecked,
+  onCheck,
+  onRemove,
+  onMouseEnter,
+  onMouseLeave,
+}: PropType) => {
   if (!section.id_auto_extract_label || !section.content?.value) {
     return null;
   }
 
   return (
-    <div className="bg-[#273139] flex space-x-4 p-4 rounded">
+    <div
+      className="bg-[#273139] flex space-x-4 p-4 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300"
+      onMouseEnter={() => onMouseEnter(section.id)}
+      onMouseLeave={() => onMouseLeave(section.id)}
+    >
       <div>
         <InitialsAvatar
           title={section.id_auto_extract_label}

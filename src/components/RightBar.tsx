@@ -8,9 +8,10 @@ import { COLORS } from "@/consts/colors";
 
 type PropType = {
   onSectionSelect: (sections: SectionChildren[]) => void;
+  onSectionHover: (section: SectionChildren, shouldRemove?: boolean) => void;
 };
 
-const RightBar = ({ onSectionSelect }: PropType) => {
+const RightBar = ({ onSectionSelect, onSectionHover }: PropType) => {
   const { data } = Sections;
 
   const [sections, setSections] = useState<SectionChildren[]>(
@@ -61,6 +62,19 @@ const RightBar = ({ onSectionSelect }: PropType) => {
     setSections(sections.filter((section) => section.id !== id));
   };
 
+  const handleMouseEnter = (id: number) => {
+    const hoveredSection = sections.find((section) => section.id === id);
+    if (hoveredSection) {
+      onSectionHover(hoveredSection);
+    }
+  };
+  const handleMouseLeave = (id: number) => {
+    const hoveredSection = sections.find((section) => section.id === id);
+    if (hoveredSection) {
+      onSectionHover(hoveredSection, true);
+    }
+  };
+
   return (
     <div>
       <p>Fields</p>
@@ -80,6 +94,8 @@ const RightBar = ({ onSectionSelect }: PropType) => {
                       isChecked={section.isChecked ?? false}
                       onCheck={handleCheck}
                       onRemove={handleRemove}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
                     />
                   </li>
                 );

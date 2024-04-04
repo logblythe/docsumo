@@ -5,14 +5,33 @@ import SectionTile from "./SectionTile";
 import { Button } from "./ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { COLORS } from "@/consts/colors";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 type PropType = {
   onSectionSelect: (sections: SectionChildren[]) => void;
   onSectionHover: (section: SectionChildren, shouldRemove?: boolean) => void;
+  enableConfirmButton?: boolean;
 };
 
-const RightBar = ({ onSectionSelect, onSectionHover }: PropType) => {
+const RightBar = ({
+  onSectionSelect,
+  onSectionHover,
+  enableConfirmButton,
+}: PropType) => {
   const { data } = Sections;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isInnerOpen, setIsInnerOpen] = useState(false);
 
   const [sections, setSections] = useState<SectionChildren[]>(
     (data.sections[0].children as SectionChildren[])
@@ -68,6 +87,7 @@ const RightBar = ({ onSectionSelect, onSectionHover }: PropType) => {
       onSectionHover(hoveredSection);
     }
   };
+
   const handleMouseLeave = (id: number) => {
     const hoveredSection = sections.find((section) => section.id === id);
     if (hoveredSection) {
@@ -104,7 +124,56 @@ const RightBar = ({ onSectionSelect, onSectionHover }: PropType) => {
             <hr className="h-px mt-1 mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
             <div className="flex flex-row justify-between">
               <Button onClick={handleSelectAll}>Select all</Button>
-              <Button>Confirm</Button>
+              {/**First Alert Dialog */}
+              <AlertDialog
+                key={"outer-dialog"}
+                open={isOpen}
+                onOpenChange={setIsOpen}
+              >
+                <AlertDialogTrigger asChild>
+                  <Button disabled={!enableConfirmButton}>Confirm</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className=" bg-slate-700 border-0">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you sure you want to confirm the selected fields?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="bg-white text-black">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => {
+                        setIsInnerOpen(true);
+                      }}
+                    >
+                      Confirm
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
+              {/**Second Alert Dialog */}
+              <AlertDialog
+                key={"outer-dialog"}
+                open={isInnerOpen}
+                onOpenChange={setIsInnerOpen}
+              >
+                <AlertDialogContent className=" bg-slate-700 border-0">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Fields confirmed and processed successfully!
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogAction>Ok</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         </TabsContent>

@@ -68,6 +68,7 @@ function App() {
         <RightBar
           onSectionSelect={handleSectionSelect}
           onSectionHover={handleSectionHover}
+          enableConfirmButton={coordinates.length > 1}
         />
       </div>
     </div>

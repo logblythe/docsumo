@@ -1,10 +1,21 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
 type PropType = React.PropsWithChildren &
-  React.HTMLAttributes<HTMLButtonElement>;
-export const Button = ({ children, ...props }: PropType) => {
+  React.HTMLAttributes<HTMLButtonElement> & {
+    disabled?: boolean;
+    className?: string;
+  };
+
+export const Button = ({ children, className, ...props }: PropType) => {
   return (
-    <button className="bg-[#273139]" {...props}>
+    <button
+      className={cn(
+        "bg-[#273139] disabled:bg-gray-500 disabled:cursor-not-allowed",
+        className
+      )}
+      {...props}
+    >
       {children}
     </button>
   );

@@ -1,14 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import SampleImage from "./assets/sample-image.jpg";
+import { CoordinateWithColor } from "./types/CoordinateType";
 
-interface Coordinates {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-const BoundingBoxOnImage: React.FC<{ coordinates: Coordinates[] }> = ({
+const BoundingBoxOnImage: React.FC<{ coordinates: CoordinateWithColor[] }> = ({
   coordinates,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -35,13 +29,12 @@ const BoundingBoxOnImage: React.FC<{ coordinates: Coordinates[] }> = ({
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
 
-      // Set box background color and opacity
-      ctx.fillStyle = "red";
-      ctx.globalAlpha = 0.4;
-
       // Draw the bounding box
       coordinates.forEach((coordinate) => {
-        const { x, y, width, height } = coordinate;
+        const { x, y, width, height, color } = coordinate;
+        // Set box background color and opacity
+        ctx.fillStyle = color;
+        ctx.globalAlpha = 0.4;
         ctx.fillRect(x, y, width - x, height - y);
       });
 

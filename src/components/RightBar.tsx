@@ -6,14 +6,23 @@ import { Button } from "./ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { COLORS } from "@/consts/colors";
 
-const RightBar = () => {
+type PropType = {
+  onSectionSelect: (sections: SectionChildren[]) => void;
+};
+
+const RightBar = ({ onSectionSelect }: PropType) => {
   const { data } = Sections;
 
   const [sections, setSections] = useState<SectionChildren[]>(
-    (data.sections[0].children as SectionChildren[]).map((section, index) => {
-      section.color = COLORS[index % 10];
-      return section;
-    })
+    (data.sections[0].children as SectionChildren[])
+      .filter(
+        (section) =>
+          section.content?.position && section.content?.position.length > 0
+      )
+      .map((section, index) => {
+        section.color = COLORS[index % 10];
+        return section;
+      })
   );
 
   const handleSelectAll = () => {
@@ -21,6 +30,7 @@ const RightBar = () => {
     sectionsCopy.forEach((section) => {
       section.isChecked = true;
     });
+    onSectionSelect(sectionsCopy.filter((section) => section.isChecked));
     setSections(sectionsCopy);
   };
 
@@ -33,6 +43,7 @@ const RightBar = () => {
     sec.isChecked = isChecked;
     const index = sectionsCopy.findIndex((section) => section.id === id);
     sectionsCopy[index] = sec;
+    onSectionSelect(sectionsCopy.filter((section) => section.isChecked));
     setSections(sectionsCopy);
   };
 

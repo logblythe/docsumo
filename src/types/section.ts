@@ -43,6 +43,8 @@ export interface SectionChildren {
   drop_down_type?: string;
   children?: Child[][][];
   row_count?: number;
+  isChecked?: boolean;
+  color?: string;
 }
 
 export interface Child {
@@ -67,6 +69,7 @@ export interface Child {
   sub_p_type: string;
   time_spent: number;
   type: string;
+  color?: string;
 }
 
 export interface Content2 {

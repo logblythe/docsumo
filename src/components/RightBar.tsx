@@ -47,6 +47,20 @@ const RightBar = ({ onSectionSelect }: PropType) => {
     setSections(sectionsCopy);
   };
 
+  const handleRemove = (id: number) => {
+    const sectionsCopy = [...sections];
+    const sec = sectionsCopy.find((section) => section.id === id);
+    if (!sec) {
+      return sectionsCopy;
+    }
+    sec.isChecked = false;
+    const index = sectionsCopy.findIndex((section) => section.id === id);
+    sectionsCopy[index] = sec;
+    onSectionSelect(sectionsCopy.filter((section) => section.isChecked));
+    setSections(sectionsCopy);
+    setSections(sections.filter((section) => section.id !== id));
+  };
+
   return (
     <div>
       <p>Fields</p>
@@ -65,6 +79,7 @@ const RightBar = ({ onSectionSelect }: PropType) => {
                       section={section}
                       isChecked={section.isChecked ?? false}
                       onCheck={handleCheck}
+                      onRemove={handleRemove}
                     />
                   </li>
                 );

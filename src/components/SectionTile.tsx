@@ -1,12 +1,20 @@
+import { ThreeDotIcon } from "@/ThreeDotIcon";
 import { SectionChildren } from "@/types/section";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 type PropType = {
   section: SectionChildren;
   isChecked: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
+  onRemove: (id: number) => void;
 };
 
-const SectionTile = ({ section, isChecked, onCheck }: PropType) => {
+const SectionTile = ({ section, isChecked, onCheck, onRemove }: PropType) => {
   if (!section.id_auto_extract_label || !section.content?.value) {
     return null;
   }
@@ -24,13 +32,29 @@ const SectionTile = ({ section, isChecked, onCheck }: PropType) => {
           <p className="font-bold flex-1 justify-start flex mt-1">
             {section.id_auto_extract_label ?? "N/A"}
           </p>
-          <input
-            type="checkbox"
-            className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 "
-            onChange={(event) => onCheck(section.id, event.target.checked)}
-            checked={isChecked}
-          />
+          <div className="flex space-x-2">
+            <input
+              type="checkbox"
+              className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 "
+              onChange={(event) => onCheck(section.id, event.target.checked)}
+              checked={isChecked}
+            />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="p-0 bg-transparent -mt-1">
+                <ThreeDotIcon height={"24px"} width={"24px"} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="rounded">
+                <DropdownMenuItem
+                  onClick={() => onRemove(section.id)}
+                  className="cursor-pointer"
+                >
+                  Remove Section
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
+
         <div className="flex flex-col items-start">
           <p className="font-medium text-left text-sm">
             {section.content?.value ?? "N/A"}

@@ -5,11 +5,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "../ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 type PropType = {
   section: SectionChildren;
   isChecked: boolean;
+  isSelected?: boolean;
+  disableHover?: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
   onRemove: (id: number) => void;
   onMouseEnter: (id: number) => void;
@@ -19,6 +22,7 @@ type PropType = {
 const SectionTile = ({
   section,
   isChecked,
+  isSelected,
   onCheck,
   onRemove,
   onMouseEnter,
@@ -30,7 +34,10 @@ const SectionTile = ({
 
   return (
     <div
-      className="bg-[#273139] flex space-x-4 p-4 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300"
+      className={cn(
+        "bg-[#273139] flex space-x-4 p-4 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300",
+        isSelected && " border-[#99C8FF] border-2"
+      )}
       onMouseEnter={() => onMouseEnter(section.id)}
       onMouseLeave={() => onMouseLeave(section.id)}
     >

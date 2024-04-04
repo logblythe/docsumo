@@ -57,14 +57,16 @@ function App() {
   };
 
   return (
-    <div className="h-screen w-auto grid grid-cols-3">
-      <div className="col-span-2">
-        <BoundingBoxOnImage
-          coordinates={coordinates}
-          hoveredCoordinates={hoveredCoordinates}
-        />
+    <div className="h-screen flex  w-screen">
+      <div className="col-span-3  max-w-[1300px] flex-1">
+        <div className=" size-full max-w-[700px] mx-auto h-screen  ">
+          <BoundingBoxOnImage
+            coordinates={coordinates}
+            hoveredCoordinates={hoveredCoordinates}
+          />
+        </div>
       </div>
-      <div className="col-span-1">
+      <div className="h-screen overflow-hidden">
         <RightBar
           onSectionSelect={handleSectionSelect}
           onSectionHover={handleSectionHover}

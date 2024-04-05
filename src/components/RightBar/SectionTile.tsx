@@ -35,7 +35,7 @@ const SectionTile = ({
   return (
     <div
       className={cn(
-        "bg-[#273139] flex space-x-4 p-4 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300",
+        "bg-card flex space-x-4 px-4 py-2 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300",
         isSelected && " border-[#99C8FF] border-2"
       )}
       onMouseEnter={() => onMouseEnter(section.id)}
@@ -47,12 +47,13 @@ const SectionTile = ({
           color={section.color ?? "#ffffff"}
         />
       </div>
-      <div className="flex-1 space-y-4">
+      <div className="flex-1 space-y-3">
         <div className="flex flex-row align-baseline">
           <p className="font-bold flex-1 justify-start flex mt-1">
             {section.id_auto_extract_label ?? "N/A"}
           </p>
           <div className="flex space-x-2">
+            {/**TODO: unable to change background color for unchecked checkbox */}
             <input
               type="checkbox"
               className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 "
@@ -95,7 +96,7 @@ const InitialsAvatar = ({ title, color }: { title: string; color: string }) => {
 
   return (
     <div
-      className="font-bold rounded  py-2 px-3 border-l-8"
+      className="font-bold rounded py-2 px-3 border-l-8"
       style={{ background: `${color}60`, borderColor: color }}
     >
       {initials}

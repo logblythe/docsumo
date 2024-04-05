@@ -96,15 +96,15 @@ const RightBar = ({
   };
 
   return (
-    <div>
-      <p className="font-bold text-left px-4 text-xl mb-2">Fields</p>
+    <div className="px-4">
+      <p className="font-bold text-left text-xl my-4">Fields</p>
       <Tabs defaultValue="regular-fields">
-        <TabsList className="grid w-full grid-cols-2 px-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="regular-fields">Regular Fields</TabsTrigger>
           <TabsTrigger value="columns-fields">Columns Fields</TabsTrigger>
         </TabsList>
         <TabsContent value="regular-fields">
-          <div className="max-h-[700px] overflow-scroll">
+          <div className="max-h-[760px] overflow-y-auto">
             <SectionList
               sections={sections}
               onCheck={handleCheck}
@@ -117,15 +117,11 @@ const RightBar = ({
           <div className="flex flex-row justify-between">
             <Button onClick={handleSelectAll}>Select all</Button>
             {/**First Alert Dialog */}
-            <AlertDialog
-              key={"outer-dialog"}
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
+            <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
               <AlertDialogTrigger asChild>
                 <Button disabled={!enableConfirmButton}>Confirm</Button>
               </AlertDialogTrigger>
-              <AlertDialogContent className=" bg-slate-700 border-0">
+              <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>
                     Are you sure you want to confirm the selected fields?
@@ -135,9 +131,7 @@ const RightBar = ({
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className="bg-white text-black">
-                    Cancel
-                  </AlertDialogCancel>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => {
                       setIsInnerOpen(true);
@@ -150,12 +144,8 @@ const RightBar = ({
             </AlertDialog>
 
             {/**Second Alert Dialog */}
-            <AlertDialog
-              key={"outer-dialog"}
-              open={isInnerOpen}
-              onOpenChange={setIsInnerOpen}
-            >
-              <AlertDialogContent className=" bg-slate-700 border-0">
+            <AlertDialog open={isInnerOpen} onOpenChange={setIsInnerOpen}>
+              <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>
                     Fields confirmed and processed successfully!

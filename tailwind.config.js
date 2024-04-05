@@ -8,6 +8,7 @@ export const content = [
 ];
 export const prefix = "";
 export const theme = {
+  darkMode: "class",
   container: {
     center: true,
     padding: "2rem",
@@ -69,6 +70,10 @@ export const theme = {
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
+    },
+    height: {
+      "vh-minus-80": "calc(100vh - 80px)",
+      "vh-minus-200": "calc(100vh - 200px)",
     },
   },
 };

@@ -24,7 +24,7 @@ export const SectionList = ({ sections, ...rest }: PropType) => {
   };
 
   return (
-    <ul className="space-y-2 px-6" onKeyDown={handleKeyDown}>
+    <ul className="space-y-2" onKeyDown={handleKeyDown}>
       {sections.map((section, index) => {
         return (
           <li key={section.id}>

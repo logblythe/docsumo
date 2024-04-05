@@ -1,4 +1,4 @@
-import { ThreeDotIcon } from "@/components/ThreeDotIcon";
+import { ThreeDotIcon } from "@/components/";
 import { SectionChildren } from "@/types/section";
 import {
   DropdownMenu,

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import BoundingBoxOnImage from "./components/BoundingBoxOnImage";
-import RightBar from "./components/RightBar";
-import { CoordinateWithColor } from "./types/CoordinateType";
-import { SectionChildren } from "./types/section";
+import { BoundingBoxOnImage, RightBar, ThemeSwitcher } from "./components/";
 import {
   Select,
   SelectContent,
@@ -13,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
-import ThemeSwitcher from "./components/ThemeSwitcher";
+import { CoordinateWithColor } from "./types/CoordinateType";
+import { SectionChildren } from "./types/section";
 
 function App() {
   const [zoom, setZoom] = useState(1);

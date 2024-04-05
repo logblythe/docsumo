@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
-import SampleImage from "./assets/sample-image.jpg";
-import { CoordinateWithColor } from "./types/CoordinateType";
+import SampleImage from "../assets/sample-image.jpg";
+import { CoordinateWithColor } from "../types/CoordinateType";
 
 type PropType = {
   zoom: number;

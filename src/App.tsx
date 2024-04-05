@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import BoundingBoxOnImage from "./BoundingBoxOnImage";
+import BoundingBoxOnImage from "./components/BoundingBoxOnImage";
 import RightBar from "./components/RightBar";
 import { CoordinateWithColor } from "./types/CoordinateType";
 import { SectionChildren } from "./types/section";

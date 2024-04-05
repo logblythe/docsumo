@@ -45,7 +45,7 @@ export const SectionList = ({ sections, ...rest }: PropType) => {
   };
 
   return (
-    <ul className="space-y-2 px-2">
+    <ul className="space-y-2 p-2">
       {sections.map((section, index) => {
         return (
           <li

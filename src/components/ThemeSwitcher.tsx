@@ -1,20 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ThemeSwitcher = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    const isDarkMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(isDarkMode);
-  }, []);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("darkMode", String(darkMode));
+    localStorage.setItem("darkMode", darkMode.toString());
   }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
+    setDarkMode((darkMode) => !darkMode);
   };
 
   return (

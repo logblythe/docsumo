@@ -1,6 +1,7 @@
 import { SectionChildren } from "@/types/section";
 import SectionTile from "./SectionTile";
-import { useState } from "react";
+import { useRef } from "react";
+import { EventKey } from "@/enums/event-key";
 
 type PropType = {
   sections: SectionChildren[];
@@ -11,27 +12,58 @@ type PropType = {
 };
 
 export const SectionList = ({ sections, ...rest }: PropType) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
-    if (event.key === "ArrowUp") {
-      setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    } else if (event.key === "ArrowDown") {
-      setSelectedIndex((prevIndex) =>
-        Math.min(prevIndex + 1, sections.length - 1)
-      );
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLLIElement>,
+    id: number,
+    isChecked: boolean,
+    index: number
+  ) => {
+    switch (event.key) {
+      case EventKey.ENTER: {
+        rest.onCheck(id, !isChecked);
+        break;
+      }
+      case EventKey.ARROW_DOWN: {
+        event.preventDefault();
+        const nextIndex = index + 1;
+        if (nextIndex < sections.length) {
+          itemRefs.current[nextIndex]?.focus();
+        }
+        break;
+      }
+      case EventKey.ARROW_UP: {
+        event.preventDefault();
+        const prevIndex = index - 1;
+        if (prevIndex >= 0) {
+          itemRefs.current[prevIndex]?.focus();
+        }
+        break;
+      }
     }
   };
 
   return (
-    <ul className="space-y-2" onKeyDown={handleKeyDown}>
+    <ul className="space-y-2 px-2">
       {sections.map((section, index) => {
         return (
-          <li key={section.id}>
+          <li
+            key={section.id}
+            onKeyDown={(event) =>
+              handleKeyDown(
+                event,
+                section.id,
+                section.isChecked ?? false,
+                index
+              )
+            }
+            tabIndex={0}
+            ref={(element) => (itemRefs.current[index] = element)} // Save a reference to the list item
+          >
             <SectionTile
               section={section}
               isChecked={section.isChecked ?? false}
-              isSelected={selectedIndex === index}
               disableHover={true}
               {...rest}
             />

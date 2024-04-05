@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 type PropType = {
   section: SectionChildren;
   isChecked: boolean;
-  isSelected?: boolean;
   disableHover?: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
   onRemove: (id: number) => void;
@@ -22,7 +21,6 @@ type PropType = {
 const SectionTile = ({
   section,
   isChecked,
-  isSelected,
   onCheck,
   onRemove,
   onMouseEnter,
@@ -35,8 +33,7 @@ const SectionTile = ({
   return (
     <div
       className={cn(
-        "bg-card flex space-x-4 px-4 py-2 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300",
-        isSelected && " border-[#99C8FF] border-2"
+        "bg-card flex space-x-4 px-4 py-2 rounded hover:cursor-pointer hover:shadow-2xl hover:bg-[#2da394] transition ease-in-out hover:-translate-y-[0.5px] duration-300"
       )}
       onMouseEnter={() => onMouseEnter(section.id)}
       onMouseLeave={() => onMouseLeave(section.id)}

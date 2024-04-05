@@ -9,4 +9,4 @@ export const COLORS = [
   "#CCCCFF",
   "#F08080",
   "#FF69B4",
-];
+] as const;
